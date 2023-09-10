@@ -1,5 +1,6 @@
 package lpirito.ms.appoints.controller;
 
+import lpirito.ms.appoints.client.PatientAPIClient;
 import lpirito.ms.appoints.dto.AppointDTO;
 import lpirito.ms.appoints.entity.Appoint;
 import lpirito.ms.appoints.service.IAppointService;
@@ -16,6 +17,8 @@ public class AppointController {
 
     @Autowired
     private IAppointService appointService;
+
+
 
     @PostMapping()
     public String createAppointment(@RequestBody AppointDTO appoint) {

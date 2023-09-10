@@ -1,5 +1,6 @@
 package lpirito.ms.appoints.service;
 
+import lpirito.ms.appoints.client.PatientAPIClient;
 import lpirito.ms.appoints.dto.PatientDTO;
 import lpirito.ms.appoints.entity.Appoint;
 import lpirito.ms.appoints.repository.IAppointRepository;
@@ -19,7 +20,7 @@ public class AppointService implements IAppointService{
     private IAppointRepository appointRepository;
 
     @Autowired
-    private RestTemplate apiConsumer;
+    private PatientAPIClient patientAPIClient;
 
     @Override
     public List<Appoint> getAllApointments() {
@@ -29,7 +30,7 @@ public class AppointService implements IAppointService{
     @Override
     public void saveAppointment(LocalDate date, String treatment, String dni) {
         // Call patients api
-        PatientDTO patient = apiConsumer.getForObject("http://localhost:9001/api/v1/patient/dni/" + dni, PatientDTO.class);
+        PatientDTO patient = patientAPIClient.getPatientByDNI(dni);
         String fullPatientName = patient.getName() + " " + patient.getLastName();
 
         Appoint appoint = new Appoint();
